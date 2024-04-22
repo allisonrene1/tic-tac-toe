@@ -19,20 +19,27 @@
     <div id="game-title">Tic Tac Toe</div>
     <div id="game-subtitle">You vs. The Computer╰(*°▽°*)╯</div>
     <div id="tic-tac-toe-grid">
-      <span class="cell r1 c1 d1 h">X</span>
-      <span class="cell r1 c2 h v"></span>
-      <span class="cell r1 c3 d2 h v">O</span>
-      <span class="cell r2 c1 h">X</span>
-      <span class="cell r2 c2 d1 d2 h v"></span>
-      <span class="cell r2 c3 h v">X</span>
-      <span class="cell r3 c1 d2">O</span>
-      <span class="cell r3 c2 v">O</span>
-      <span class="cell r3 c3 d1 v"></span>
+      <span class="cell r1 c1 d1 h" id="1"></span>
+      <span class="cell r1 c2 h v" id="2"></span>
+      <span class="cell r1 c3 d2 h v" id="3"></span>
+      <span class="cell r2 c1 h" id="4"></span>
+      <span class="cell r2 c2 d1 d2 h v" id="5"></span>
+      <span class="cell r2 c3 h v" id="6"></span>
+      <span class="cell r3 c1 d2" id="7"></span>
+      <span class="cell r3 c2 v" id="8"></span>
+      <span class="cell r3 c3 d1 v" id="9"></span>
     </div>
     <div class="buttons">
       <button id="play-game-btn1">Go 1st</button>
       <button id="play-game-btn2">Go 2nd</button>
       <button id="new-game-btn">New Game</button>
+    </div>
+    <div class="win-or-lose">
+      <div class="modal-end">
+        <h1>Game Over</h1>
+        <h2 class="human-or-comp">You (won or lost, JavaScript outcome)</h2>
+        <button id="play-again">Play Again?</button>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
