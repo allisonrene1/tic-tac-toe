@@ -29,9 +29,14 @@ playAgainButton.addEventListener("click", resetGame);
 
 function resetGame() {
   modalWindow.style.visibility = "hidden";
-  gameGrid.style.opacity = "1.0";
+  gameGrid.style.opacity = "0.2";
   playGameButton1.style.opacity = "1.0";
   playGameButton2.style.opacity = "1.0";
+  for (let i = 0; i < gameCells.length; i++) {
+    gameCells[i].innerText = "";
+    gameCells[i].style.color = "#07748a";
+  }
+  gameBoard = Array.from(Array(10).keys());
 
   playGameButton1.addEventListener("click", playGame);
 }
