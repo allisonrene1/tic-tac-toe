@@ -21,10 +21,11 @@ const winningCombos = [
   [7, 5, 3],
 ];
 
+let currentPlayer;
 let gameBoard = [];
 
 playGameButton1.addEventListener("click", playGame);
-// playGameButton2.addEventListener("click", playGame);
+playGameButton2.addEventListener("click", playGame);
 playAgainButton.addEventListener("click", resetGame);
 
 function resetGame() {
@@ -52,7 +53,7 @@ function playGame() {
   }
 }
 
-// function to get the squareID and link it to the go first button
+// function to get the squareID
 function someoneIsClicking(square) {
   console.log(square.target.id);
   if (
@@ -64,6 +65,11 @@ function someoneIsClicking(square) {
     if (!checkTie() && !gameWon) {
       theTurn(bestSpot(), goSecond);
     }
+  }
+  console.log("Remaining square indexes in game board:", emptySquares());
+  if (checkTie()) {
+    console.log("Tie condition detected. Game over.");
+    gameOver(null, true);
   }
 }
 
@@ -102,28 +108,38 @@ winning combinations variable AND the winning numbers */
 
 /* A "for of" loop to see if any of the winning conditions have been met, 
 if so, change the fontcolor. Then, remove the ability to click on any more squares */
-function gameOver(gameWon) {
-  for (let index of winningCombos[gameWon.index]) {
-    document.getElementById(index).style.color =
-      gameWon.player == goFirst ? "gold" : "gold";
+function gameOver(gameWon, isTie) {
+  console.log("Entering gameOver function...");
+  if (!isTie) {
+    console.log("Game is not a tie. Highlighting winning combination...");
+    for (let index of winningCombos[gameWon.index]) {
+      document.getElementById(index).style.color =
+        gameWon.player == goFirst ? "gold" : "gold";
+    }
   }
+  console.log("Removing click event listeners from game cells...");
   for (let i = 0; i < gameCells.length; i++) {
     gameCells[i].removeEventListener("click", someoneIsClicking, false);
   }
+  console.log("Removing click event listener from playGameButton1...");
   playGameButton1.removeEventListener("click", playGame);
   setTimeout(function () {
     let winnerText = "";
-    if (gameWon.player === goFirst) {
-      winnerText = "You";
+    if (isTie) {
+      winnerText = "Neither of you";
     } else if (gameWon.player === goSecond) {
       winnerText = "The computer";
+    } else if (gameWon.player === goFirst) {
+      winnerText = "You";
     }
+    console.log("Displaying winner/loser text and modal window...");
     winnerOrLoserText.textContent = `${winnerText} won the game!`;
     modalWindow.style.visibility = "visible";
     gameGrid.style.opacity = "0.2";
     playGameButton1.style.opacity = "0.2";
     playGameButton2.style.opacity = "0.2";
   }, 1000);
+  throw new Error("a bandaid ass solution, god help me");
 }
 
 function emptySquares() {
@@ -135,9 +151,13 @@ function bestSpot() {
 }
 
 function checkTie() {
-  if (emptySquares().length === 0) {
+  if (emptySquares().length === 1) {
+    console.log("All squares are filled. Checking for tie...");
     for (let i = 0; i < gameCells.length; i++) {
       gameCells[i].removeEventListener("click", someoneIsClicking, false);
     }
+    console.log("Click event listeners removed from all squares.");
+    return true; // Indicates a tie
   }
+  return false; // Game is not tied
 }
