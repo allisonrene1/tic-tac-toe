@@ -35,11 +35,13 @@ function resetGame() {
   gameGrid.style.opacity = "0.2";
   playGameButton1.style.opacity = "1.0";
   playGameButton2.style.opacity = "1.0";
+  gameBoard = Array.from(Array(10).keys());
   for (let i = 0; i < gameCells.length; i++) {
     gameCells[i].innerText = "";
     gameCells[i].style.color = "#07748a";
+    gameCells[i].removeEventListener("click", someoneIsClicking);
+    gameCells[i].removeEventListener("click", someoneIsClicking2);
   }
-  gameBoard = Array.from(Array(10).keys());
 
   playGameButton1.addEventListener("click", playGame);
   playGameButton2.addEventListener("click", playGame2);
@@ -69,7 +71,9 @@ function someoneIsClicking(square) {
     theTurn(square.target.id, goFirst);
     let gameWon = checkIfGameOver(gameBoard, goFirst);
     if (!checkTie() && !gameWon) {
-      theTurn(bestSpot(), goSecond);
+      setTimeout(() => {
+        theTurn(bestSpot(), goSecond);
+      }, 500);
     }
   }
   console.log("Remaining square indexes in game board:", emptySquares());
@@ -251,7 +255,7 @@ function gameOver2(gameWon, isTie) {
 }
 
 function checkTie2() {
-  if (emptySquares().length === 2) {
+  if (emptySquares().length === 0) {
     console.log("All squares are filled. Checking for tie...");
     for (let i = 0; i < gameCells.length; i++) {
       gameCells[i].removeEventListener("click", someoneIsClicking, false);
