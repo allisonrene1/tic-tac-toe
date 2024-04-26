@@ -226,12 +226,12 @@ function gameOver2(gameWon, isTie) {
     console.log("Game is not a tie. Highlighting winning combination...");
     for (let index of winningCombos[gameWon.index]) {
       document.getElementById(index).style.color =
-        gameWon.player == goFirst ? "gold" : "gold";
+        gameWon.player == goFirstComputer ? "gold" : "gold";
     }
   }
   console.log("Removing click event listeners from game cells...");
   for (let i = 0; i < gameCells.length; i++) {
-    gameCells[i].removeEventListener("click", someoneIsClicking, false);
+    gameCells[i].removeEventListener("click", someoneIsClicking2, false);
   }
   console.log("Removing click event listener from playGameButton1...");
   playGameButton2.removeEventListener("click", playGame2);
@@ -255,10 +255,10 @@ function gameOver2(gameWon, isTie) {
 }
 
 function checkTie2() {
-  if (emptySquares().length === 0) {
+  if (emptySquares().length === 2) {
     console.log("All squares are filled. Checking for tie...");
     for (let i = 0; i < gameCells.length; i++) {
-      gameCells[i].removeEventListener("click", someoneIsClicking, false);
+      gameCells[i].removeEventListener("click", someoneIsClicking2, false);
     }
     console.log("Click event listeners removed from all squares.");
     return true; // Indicates a tie
