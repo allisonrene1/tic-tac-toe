@@ -119,19 +119,17 @@ winning combinations variable AND the winning numbers */
 /* A "for of" loop to see if any of the winning conditions have been met, 
 if so, change the fontcolor. Then, remove the ability to click on any more squares */
 function gameOver(gameWon, isTie) {
-  console.log("Entering gameOver function...");
   if (!isTie) {
-    console.log("Game is not a tie. Highlighting winning combination...");
     for (let index of winningCombos[gameWon.index]) {
       document.getElementById(index).style.color =
         gameWon.player == goFirst ? "gold" : "gold";
     }
   }
-  console.log("Removing click event listeners from game cells...");
+
   for (let i = 0; i < gameCells.length; i++) {
     gameCells[i].removeEventListener("click", someoneIsClicking, false);
   }
-  console.log("Removing click event listener from playGameButton1...");
+
   playGameButton1.removeEventListener("click", playGame);
   setTimeout(function () {
     let winnerText = "";
@@ -142,7 +140,7 @@ function gameOver(gameWon, isTie) {
     } else if (gameWon.player === goFirst) {
       winnerText = "You";
     }
-    console.log("Displaying winner/loser text and modal window...");
+
     winnerOrLoserText.textContent = `${winnerText} won the game!`;
     modalWindow.style.visibility = "visible";
     gameGrid.style.opacity = "0.2";
@@ -166,14 +164,13 @@ function bestSpot2() {
 
 function checkTie() {
   if (emptySquares().length === 1) {
-    console.log("All squares are filled. Checking for tie...");
     for (let i = 0; i < gameCells.length; i++) {
       gameCells[i].removeEventListener("click", someoneIsClicking, false);
     }
-    console.log("Click event listeners removed from all squares.");
-    return true; // Indicates a tie
+
+    return true;
   }
-  return false; // Game is not tied
+  return false;
 }
 
 function playGame2() {
@@ -206,9 +203,8 @@ function someoneIsClicking2(square) {
       }, 500);
     }
   }
-  console.log("Remaining square indexes in game board:", emptySquares());
+
   if (checkTie2()) {
-    console.log("Tie condition detected. Game over.");
     gameOver2(null, true);
   }
 }
@@ -221,19 +217,17 @@ function theTurn2(squareID, player) {
 }
 
 function gameOver2(gameWon, isTie) {
-  console.log("Entering gameOver function...");
   if (!isTie) {
-    console.log("Game is not a tie. Highlighting winning combination...");
     for (let index of winningCombos[gameWon.index]) {
       document.getElementById(index).style.color =
         gameWon.player == goFirstComputer ? "gold" : "gold";
     }
   }
-  console.log("Removing click event listeners from game cells...");
+
   for (let i = 0; i < gameCells.length; i++) {
     gameCells[i].removeEventListener("click", someoneIsClicking2, false);
   }
-  console.log("Removing click event listener from playGameButton1...");
+
   playGameButton2.removeEventListener("click", playGame2);
   setTimeout(function () {
     let winnerText = "";
@@ -244,7 +238,7 @@ function gameOver2(gameWon, isTie) {
     } else if (gameWon.player === goSecondHuman) {
       winnerText = "You";
     }
-    console.log("Displaying winner/loser text and modal window...");
+
     winnerOrLoserText.textContent = `${winnerText} won the game!`;
     modalWindow.style.visibility = "visible";
     gameGrid.style.opacity = "0.2";
@@ -256,12 +250,11 @@ function gameOver2(gameWon, isTie) {
 
 function checkTie2() {
   if (emptySquares().length === 2) {
-    console.log("All squares are filled. Checking for tie...");
     for (let i = 0; i < gameCells.length; i++) {
       gameCells[i].removeEventListener("click", someoneIsClicking2, false);
     }
-    console.log("Click event listeners removed from all squares.");
-    return true; // Indicates a tie
+
+    return true;
   }
-  return false; // Game is not tied
+  return false;
 }
